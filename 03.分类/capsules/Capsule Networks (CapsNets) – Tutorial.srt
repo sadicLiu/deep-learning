@@ -1,0 +1,2160 @@
+
+1
+00:00:00,000 --> 00:00:03,990
+hey I'm overly Asian and in this video
+
+2
+00:00:02,040 --> 00:00:06,319
+I'll tell you all about capsule networks
+
+3
+00:00:03,990 --> 00:00:08,940
+a hot new architecture for neural nets
+
+4
+00:00:06,319 --> 00:00:10,500
+Jeffrey Henson had the idea of capsule
+
+5
+00:00:08,940 --> 00:00:12,750
+Network several years ago and he
+
+6
+00:00:10,500 --> 00:00:15,150
+published a paper in 2011 that
+
+7
+00:00:12,750 --> 00:00:16,440
+introduced many of the key ideas but he
+
+8
+00:00:15,150 --> 00:00:19,560
+had a hard time making them work
+
+9
+00:00:16,440 --> 00:00:22,470
+properly until now a few weeks ago in
+
+10
+00:00:19,560 --> 00:00:24,930
+October 2017 a paper called dynamic
+
+11
+00:00:22,470 --> 00:00:26,880
+routing between capsules was published
+
+12
+00:00:24,930 --> 00:00:28,740
+by Sarah saber Nicholas frost
+
+13
+00:00:26,880 --> 00:00:30,330
+and of course Geoffrey Hinton they
+
+14
+00:00:28,740 --> 00:00:32,960
+managed to reach state-of-the-art
+
+15
+00:00:30,330 --> 00:00:35,610
+performance on the MS dataset and
+
+16
+00:00:32,960 --> 00:00:37,980
+demonstrated considerably better results
+
+17
+00:00:35,610 --> 00:00:41,250
+than convolutional neural nets on highly
+
+18
+00:00:37,980 --> 00:00:43,710
+overlapping digits so what are capsule
+
+19
+00:00:41,250 --> 00:00:45,680
+networks exactly well in computer
+
+20
+00:00:43,710 --> 00:00:47,969
+graphics you start with an abstract
+
+21
+00:00:45,680 --> 00:00:51,300
+representation of a scene for example a
+
+22
+00:00:47,969 --> 00:00:53,879
+rectangle at position X 20 and y equals
+
+23
+00:00:51,300 --> 00:00:56,430
+30 rotated by 16 degrees and and so on
+
+24
+00:00:53,879 --> 00:00:59,340
+each object type has various
+
+25
+00:00:56,430 --> 00:01:01,680
+instantiation parameters then you call
+
+26
+00:00:59,340 --> 00:01:05,369
+some rendering function and boom you get
+
+27
+00:01:01,680 --> 00:01:07,530
+an image inverse graphics is just the
+
+28
+00:01:05,369 --> 00:01:09,900
+reverse process you start with an image
+
+29
+00:01:07,530 --> 00:01:12,360
+and you try to find what objects it
+
+30
+00:01:09,900 --> 00:01:15,509
+contains and what their instantiation
+
+31
+00:01:12,360 --> 00:01:17,549
+parameters are a capsule Network is
+
+32
+00:01:15,509 --> 00:01:21,119
+basically a neural network that tries to
+
+33
+00:01:17,549 --> 00:01:24,330
+perform inverse graphics it is composed
+
+34
+00:01:21,119 --> 00:01:26,250
+of many capsules a capsule is any
+
+35
+00:01:24,330 --> 00:01:28,080
+function that tries to predict the
+
+36
+00:01:26,250 --> 00:01:30,930
+presence and the instantiation
+
+37
+00:01:28,080 --> 00:01:33,720
+parameters of a particular object at a
+
+38
+00:01:30,930 --> 00:01:36,750
+given location for example the network
+
+39
+00:01:33,720 --> 00:01:39,390
+above contains 50 capsules the arrows
+
+40
+00:01:36,750 --> 00:01:42,570
+represent the output vectors of these
+
+41
+00:01:39,390 --> 00:01:45,299
+capsules capsules output vectors the
+
+42
+00:01:42,570 --> 00:01:47,909
+black arrows correspond to capsules that
+
+43
+00:01:45,299 --> 00:01:50,070
+try to find rectangles while the blue
+
+44
+00:01:47,909 --> 00:01:53,579
+arrows represent the output of capsules
+
+45
+00:01:50,070 --> 00:01:55,740
+looking for triangles the length of an
+
+46
+00:01:53,579 --> 00:01:58,290
+activation vector represents the
+
+47
+00:01:55,740 --> 00:02:00,060
+estimated probability that the object
+
+48
+00:01:58,290 --> 00:02:02,820
+the capsule is looking for is indeed
+
+49
+00:02:00,060 --> 00:02:05,130
+present so you can see that most arrows
+
+50
+00:02:02,820 --> 00:02:08,099
+are tiny meaning the capsules didn't
+
+51
+00:02:05,130 --> 00:02:08,580
+detect anything but two arrows are quite
+
+52
+00:02:08,099 --> 00:02:10,709
+long
+
+53
+00:02:08,580 --> 00:02:12,810
+this means that the capsules at these
+
+54
+00:02:10,709 --> 00:02:13,900
+locations are pretty confident that they
+
+55
+00:02:12,810 --> 00:02:16,629
+found what they were looking
+
+56
+00:02:13,900 --> 00:02:20,500
+for in this case a rectangle and the
+
+57
+00:02:16,629 --> 00:02:22,540
+triangle so the orientation of the
+
+58
+00:02:20,500 --> 00:02:24,579
+activation vector encodes the
+
+59
+00:02:22,540 --> 00:02:26,470
+instantiation parameters of the object
+
+60
+00:02:24,579 --> 00:02:28,510
+for example in this case the object's
+
+61
+00:02:26,470 --> 00:02:30,700
+rotation but it could be also its
+
+62
+00:02:28,510 --> 00:02:33,310
+thickness how stretched or skewed it is
+
+63
+00:02:30,700 --> 00:02:35,709
+its exact location it might be slight
+
+64
+00:02:33,310 --> 00:02:37,629
+translations and so on for simplicity
+
+65
+00:02:35,709 --> 00:02:39,879
+I'll just focus on the rotation
+
+66
+00:02:37,629 --> 00:02:42,849
+parameter but in real capsule Network
+
+67
+00:02:39,879 --> 00:02:46,299
+the activation vectors may have five ten
+
+68
+00:02:42,849 --> 00:02:49,030
+dimensions or more in practice a good
+
+69
+00:02:46,299 --> 00:02:51,970
+way to implement this is to apply a
+
+70
+00:02:49,030 --> 00:02:54,639
+couple convolutional layers just like in
+
+71
+00:02:51,970 --> 00:02:56,709
+a regular convolutional neural net this
+
+72
+00:02:54,639 --> 00:02:59,260
+will output an array containing a bunch
+
+73
+00:02:56,709 --> 00:03:01,989
+of feature maps you can then reshape
+
+74
+00:02:59,260 --> 00:03:04,209
+this array to get a set of vectors for
+
+75
+00:03:01,989 --> 00:03:06,909
+each location for example suppose the
+
+76
+00:03:04,209 --> 00:03:09,310
+convolutional layers output an array
+
+77
+00:03:06,909 --> 00:03:12,280
+containing say 18 feature maps
+
+78
+00:03:09,310 --> 00:03:14,560
+2 times 9 you can easily reshape this
+
+79
+00:03:12,280 --> 00:03:18,010
+array to get two vectors of nine
+
+80
+00:03:14,560 --> 00:03:19,840
+dimensions each for every location you
+
+81
+00:03:18,010 --> 00:03:22,599
+could also get three vectors of six
+
+82
+00:03:19,840 --> 00:03:24,280
+dimensions each and so on something that
+
+83
+00:03:22,599 --> 00:03:26,230
+would look like the capsule network
+
+84
+00:03:24,280 --> 00:03:29,349
+represented here with two vectors at
+
+85
+00:03:26,230 --> 00:03:32,440
+each location the last step is to ensure
+
+86
+00:03:29,349 --> 00:03:34,659
+that no vector is longer than one since
+
+87
+00:03:32,440 --> 00:03:36,819
+the vectors length is meant to represent
+
+88
+00:03:34,659 --> 00:03:39,069
+a probability it cannot be greater than
+
+89
+00:03:36,819 --> 00:03:41,230
+one to do this we apply a squashing
+
+90
+00:03:39,069 --> 00:03:44,049
+function it preserves the vectors
+
+91
+00:03:41,230 --> 00:03:47,129
+orientation but it squashes it to ensure
+
+92
+00:03:44,049 --> 00:03:50,349
+that its length is between zero and one
+
+93
+00:03:47,129 --> 00:03:52,930
+one key feature of capsule networks is
+
+94
+00:03:50,349 --> 00:03:55,979
+that they preserve detailed information
+
+95
+00:03:52,930 --> 00:03:58,959
+about the object's location and its pose
+
+96
+00:03:55,979 --> 00:04:01,900
+throughout the network for example if I
+
+97
+00:03:58,959 --> 00:04:03,760
+rotate the image slightly notice that
+
+98
+00:04:01,900 --> 00:04:06,190
+the activation vectors also change
+
+99
+00:04:03,760 --> 00:04:09,639
+slightly right this is called
+
+100
+00:04:06,190 --> 00:04:11,709
+equivariance in a regular convolutional
+
+101
+00:04:09,639 --> 00:04:14,889
+neural net there are generally several
+
+102
+00:04:11,709 --> 00:04:17,229
+pooling layers and unfortunately these
+
+103
+00:04:14,889 --> 00:04:19,959
+pooling layers tend to lose information
+
+104
+00:04:17,229 --> 00:04:22,180
+such as the precise location and pose of
+
+105
+00:04:19,959 --> 00:04:24,400
+the objects it's really not a big deal
+
+106
+00:04:22,180 --> 00:04:25,290
+if you just want to classify the whole
+
+107
+00:04:24,400 --> 00:04:27,120
+image
+
+108
+00:04:25,290 --> 00:04:29,910
+but it makes it challenging to perform
+
+109
+00:04:27,120 --> 00:04:32,910
+accurate image segmentation or object
+
+110
+00:04:29,910 --> 00:04:36,300
+detection which require precise you know
+
+111
+00:04:32,910 --> 00:04:38,460
+location and pose the fact that capsules
+
+112
+00:04:36,300 --> 00:04:41,550
+are equivariance makes them very
+
+113
+00:04:38,460 --> 00:04:43,680
+promising for these applications alright
+
+114
+00:04:41,550 --> 00:04:45,870
+so now let's see how capsule networks
+
+115
+00:04:43,680 --> 00:04:48,030
+can handle objects that are composed of
+
+116
+00:04:45,870 --> 00:04:50,070
+a hierarchy of parts for example
+
+117
+00:04:48,030 --> 00:04:53,580
+consider a boat centered at position X
+
+118
+00:04:50,070 --> 00:04:54,540
+equals 22 and y equals 28 and rotated by
+
+119
+00:04:53,580 --> 00:04:57,480
+16 degrees
+
+120
+00:04:54,540 --> 00:05:00,090
+this boat is compotes is composed of
+
+121
+00:04:57,480 --> 00:05:02,640
+parts in this case one rectangle and one
+
+122
+00:05:00,090 --> 00:05:05,730
+triangle so this is how would be rent
+
+123
+00:05:02,640 --> 00:05:07,410
+rendered now we want to do the reverse
+
+124
+00:05:05,730 --> 00:05:09,630
+we want universe graphics so we want to
+
+125
+00:05:07,410 --> 00:05:11,580
+go from the image to this whole
+
+126
+00:05:09,630 --> 00:05:14,580
+hierarchy of parts with their
+
+127
+00:05:11,580 --> 00:05:16,920
+instantiation parameters similarly we
+
+128
+00:05:14,580 --> 00:05:18,870
+could also draw a draw a house using the
+
+129
+00:05:16,920 --> 00:05:20,730
+same parts a rectangle in a triangle
+
+130
+00:05:18,870 --> 00:05:24,180
+that this arm organized in a different
+
+131
+00:05:20,730 --> 00:05:26,760
+way so the trick will be to try to come
+
+132
+00:05:24,180 --> 00:05:28,680
+to go from this image containing a
+
+133
+00:05:26,760 --> 00:05:31,350
+rectangle in a triangle and figure out
+
+134
+00:05:28,680 --> 00:05:34,140
+not only that the rectangle and triangle
+
+135
+00:05:31,350 --> 00:05:36,150
+are at this location and this
+
+136
+00:05:34,140 --> 00:05:37,470
+orientation but also that they are part
+
+137
+00:05:36,150 --> 00:05:40,170
+of a boat not a house
+
+138
+00:05:37,470 --> 00:05:42,030
+so yeah let's let's figure out how it
+
+139
+00:05:40,170 --> 00:05:43,920
+would do this the first step we have
+
+140
+00:05:42,030 --> 00:05:45,720
+already seen we run a couple of
+
+141
+00:05:43,920 --> 00:05:48,360
+convolutional layers we reshape the
+
+142
+00:05:45,720 --> 00:05:51,150
+output to get vectors and we squash them
+
+143
+00:05:48,360 --> 00:05:52,770
+this gives us the output of the primary
+
+144
+00:05:51,150 --> 00:05:55,710
+capsules we've got the first layer
+
+145
+00:05:52,770 --> 00:05:57,450
+already the next step is where most of
+
+146
+00:05:55,710 --> 00:06:00,420
+the magic and complexity of capsule
+
+147
+00:05:57,450 --> 00:06:03,000
+networks takes place every capsule in
+
+148
+00:06:00,420 --> 00:06:05,640
+the first layer tries to predict the
+
+149
+00:06:03,000 --> 00:06:08,070
+output of every capsule in the next
+
+150
+00:06:05,640 --> 00:06:10,110
+layer you might want to pause to think
+
+151
+00:06:08,070 --> 00:06:13,260
+about what this means that the capsules
+
+152
+00:06:10,110 --> 00:06:15,210
+at the primary the first layer tried to
+
+153
+00:06:13,260 --> 00:06:18,090
+predict what the second layer capsules
+
+154
+00:06:15,210 --> 00:06:20,250
+will output for example let's consider
+
+155
+00:06:18,090 --> 00:06:24,330
+the capsule that detected the rectangle
+
+156
+00:06:20,250 --> 00:06:27,090
+I'll call it the rectangle capsule let's
+
+157
+00:06:24,330 --> 00:06:29,790
+suppose that there are two capsules in
+
+158
+00:06:27,090 --> 00:06:30,600
+the next layer the house capsule and the
+
+159
+00:06:29,790 --> 00:06:33,390
+boat capsule
+
+160
+00:06:30,600 --> 00:06:36,169
+since the rectangle capsule detected a
+
+161
+00:06:33,390 --> 00:06:38,479
+rectangle rotated by 16 degrees
+
+162
+00:06:36,169 --> 00:06:40,969
+it predicts that the house capsule will
+
+163
+00:06:38,479 --> 00:06:42,979
+detect a house rotated by 16 degrees
+
+164
+00:06:40,969 --> 00:06:45,529
+that makes sense and the boat capsule
+
+165
+00:06:42,979 --> 00:06:47,960
+will detect a boat rotated by 16 degrees
+
+166
+00:06:45,529 --> 00:06:52,310
+as well that's what would be consistent
+
+167
+00:06:47,960 --> 00:06:54,860
+with the orientation of the rectangle so
+
+168
+00:06:52,310 --> 00:06:56,360
+to make this prediction what the
+
+169
+00:06:54,860 --> 00:06:59,360
+rectangle capsule does is simply
+
+170
+00:06:56,360 --> 00:07:02,900
+computes the dot product of a
+
+171
+00:06:59,360 --> 00:07:06,529
+transformation matrix W IJ with its own
+
+172
+00:07:02,900 --> 00:07:08,210
+activation vector at U at UI during
+
+173
+00:07:06,529 --> 00:07:10,279
+training the network will gradually
+
+174
+00:07:08,210 --> 00:07:12,499
+learn a transformation matrix for each
+
+175
+00:07:10,279 --> 00:07:14,749
+pair of capsules in the first and second
+
+176
+00:07:12,499 --> 00:07:17,210
+layer in other words it will learn all
+
+177
+00:07:14,749 --> 00:07:19,069
+the part hole relationships for example
+
+178
+00:07:17,210 --> 00:07:21,189
+the angle between the wall and the roof
+
+179
+00:07:19,069 --> 00:07:23,719
+of a house and so on
+
+180
+00:07:21,189 --> 00:07:27,199
+now let's see what the triangle capsule
+
+181
+00:07:23,719 --> 00:07:29,629
+predicts right this time it's a bit more
+
+182
+00:07:27,199 --> 00:07:31,939
+interesting given the rotation angle of
+
+183
+00:07:29,629 --> 00:07:34,520
+the triangle it predicts that the house
+
+184
+00:07:31,939 --> 00:07:37,639
+capsule will detect an upside-down house
+
+185
+00:07:34,520 --> 00:07:40,250
+and the boat capsule will detect about
+
+186
+00:07:37,639 --> 00:07:42,770
+rotated by 16 degrees these are the
+
+187
+00:07:40,250 --> 00:07:45,589
+positions that would be consistent with
+
+188
+00:07:42,770 --> 00:07:49,520
+the you know rotation angle of the
+
+189
+00:07:45,589 --> 00:07:51,379
+triangle now we've got a bunch of
+
+190
+00:07:49,520 --> 00:07:53,930
+predicted outputs what do we do with
+
+191
+00:07:51,379 --> 00:07:56,330
+them well as you can see the rectangle
+
+192
+00:07:53,930 --> 00:07:59,029
+capsule and the triangle capsules
+
+193
+00:07:56,330 --> 00:08:01,189
+strongly agree on what the boat capsule
+
+194
+00:07:59,029 --> 00:08:03,860
+will output in other words they agree
+
+195
+00:08:01,189 --> 00:08:05,419
+that a boat positioned in this way would
+
+196
+00:08:03,860 --> 00:08:07,819
+explain their own positions and
+
+197
+00:08:05,419 --> 00:08:09,849
+rotations and they totally disagree on
+
+198
+00:08:07,819 --> 00:08:12,319
+what the house capsule will output
+
+199
+00:08:09,849 --> 00:08:14,689
+therefore it makes sense to assume that
+
+200
+00:08:12,319 --> 00:08:18,469
+the rectangle and triangle are part of a
+
+201
+00:08:14,689 --> 00:08:20,149
+boat not a house now that we know that
+
+202
+00:08:18,469 --> 00:08:22,849
+the rectangle and triangle are part of
+
+203
+00:08:20,149 --> 00:08:25,339
+the boat the outputs of the rectangle
+
+204
+00:08:22,849 --> 00:08:26,899
+capsule and the triangle capsule really
+
+205
+00:08:25,339 --> 00:08:28,879
+concern only the boat capsule this
+
+206
+00:08:26,899 --> 00:08:30,800
+there's no need to send these outputs to
+
+207
+00:08:28,879 --> 00:08:33,319
+any other capsule this would just add
+
+208
+00:08:30,800 --> 00:08:34,250
+noise they should be sent only to the
+
+209
+00:08:33,319 --> 00:08:37,039
+boat capsule
+
+210
+00:08:34,250 --> 00:08:39,949
+this is called routing by agreements
+
+211
+00:08:37,039 --> 00:08:42,529
+there are several benefits first since
+
+212
+00:08:39,949 --> 00:08:44,329
+capsule outputs are only routed to the
+
+213
+00:08:42,529 --> 00:08:46,970
+appropriate capsule in the next layer
+
+214
+00:08:44,329 --> 00:08:47,880
+these capsules will get a cleaner input
+
+215
+00:08:46,970 --> 00:08:50,430
+signal
+
+216
+00:08:47,880 --> 00:08:53,700
+more accurate accurately determine the
+
+217
+00:08:50,430 --> 00:08:55,800
+pose of the object second by looking at
+
+218
+00:08:53,700 --> 00:08:57,990
+the paths of the activations you can
+
+219
+00:08:55,800 --> 00:09:00,180
+easily navigate the hierarchy of parts
+
+220
+00:08:57,990 --> 00:09:02,520
+and know exactly which part belongs to
+
+221
+00:09:00,180 --> 00:09:04,710
+which objects like the rectangle biller
+
+222
+00:09:02,520 --> 00:09:06,530
+belongs to the boats or the triangle
+
+223
+00:09:04,710 --> 00:09:09,750
+belongs to the boat and so on
+
+224
+00:09:06,530 --> 00:09:12,330
+lastly routing this by agreement helps
+
+225
+00:09:09,750 --> 00:09:14,430
+parse crowded scenes with overlapping
+
+226
+00:09:12,330 --> 00:09:17,490
+objects we will see this in a few slides
+
+227
+00:09:14,430 --> 00:09:19,860
+but first let's look at how running by
+
+228
+00:09:17,490 --> 00:09:23,250
+agreements is implemented in capsule
+
+229
+00:09:19,860 --> 00:09:26,280
+networks here I have represented the
+
+230
+00:09:23,250 --> 00:09:28,350
+various poses of the boat as predicted
+
+231
+00:09:26,280 --> 00:09:30,750
+by the lower level capsules for example
+
+232
+00:09:28,350 --> 00:09:33,240
+one of these circles may represent what
+
+233
+00:09:30,750 --> 00:09:36,150
+the rectangle capsule thinks about the
+
+234
+00:09:33,240 --> 00:09:38,190
+most likely pose of the boat and another
+
+235
+00:09:36,150 --> 00:09:40,230
+circle may represent what the triangle
+
+236
+00:09:38,190 --> 00:09:42,420
+capsule thinks and if we suppose that
+
+237
+00:09:40,230 --> 00:09:44,820
+there are many other low level capsules
+
+238
+00:09:42,420 --> 00:09:47,010
+then we might get a cloud of prediction
+
+239
+00:09:44,820 --> 00:09:49,800
+vectors for the boat capsule like this
+
+240
+00:09:47,010 --> 00:09:51,660
+in this example there are two post
+
+241
+00:09:49,800 --> 00:09:53,520
+parameters one represents the rotation
+
+242
+00:09:51,660 --> 00:09:55,890
+angle and the other represents the size
+
+243
+00:09:53,520 --> 00:09:57,780
+of the boat as I mentioned earlier post
+
+244
+00:09:55,890 --> 00:09:59,340
+parameters may capture many different
+
+245
+00:09:57,780 --> 00:10:01,470
+kinds of visual features like skew
+
+246
+00:09:59,340 --> 00:10:03,480
+thickness and so on or location a
+
+247
+00:10:01,470 --> 00:10:05,850
+precise location so the first thing we
+
+248
+00:10:03,480 --> 00:10:08,700
+do is we compute the mean of these
+
+249
+00:10:05,850 --> 00:10:12,270
+predictions this gives us this vector
+
+250
+00:10:08,700 --> 00:10:14,850
+the next step is to measure the distance
+
+251
+00:10:12,270 --> 00:10:17,250
+between each predicted vector and the
+
+252
+00:10:14,850 --> 00:10:20,430
+meet vector so I will use here the
+
+253
+00:10:17,250 --> 00:10:22,220
+Euclidean distance but capsule networks
+
+254
+00:10:20,430 --> 00:10:24,390
+actually use the scalar product
+
+255
+00:10:22,220 --> 00:10:27,120
+basically we want to measure how much
+
+256
+00:10:24,390 --> 00:10:29,880
+each predicted vector agrees with the
+
+257
+00:10:27,120 --> 00:10:31,860
+mean predicted vector use using this
+
+258
+00:10:29,880 --> 00:10:33,870
+agreement measure we can update the
+
+259
+00:10:31,860 --> 00:10:35,390
+weights of every predicted vector
+
+260
+00:10:33,870 --> 00:10:38,040
+accordingly
+
+261
+00:10:35,390 --> 00:10:40,860
+note that the predicted vectors that are
+
+262
+00:10:38,040 --> 00:10:43,770
+far from the mean now have a very small
+
+263
+00:10:40,860 --> 00:10:45,720
+weight and the ones closest to the mean
+
+264
+00:10:43,770 --> 00:10:47,930
+have a much stronger weight I've
+
+265
+00:10:45,720 --> 00:10:50,910
+represent them represented them in black
+
+266
+00:10:47,930 --> 00:10:54,240
+now we can compute the mean once again
+
+267
+00:10:50,910 --> 00:10:55,860
+or I should say the weighted mean and
+
+268
+00:10:54,240 --> 00:10:58,890
+notice that it moves slightly towards
+
+269
+00:10:55,860 --> 00:11:01,290
+the cluster towards the center of the
+
+270
+00:10:58,890 --> 00:11:06,390
+cluster so next we can once again update
+
+271
+00:11:01,290 --> 00:11:09,350
+the weights and now most of the vectors
+
+272
+00:11:06,390 --> 00:11:12,720
+within the cluster have turned black and
+
+273
+00:11:09,350 --> 00:11:14,370
+again we can update the mean and we can
+
+274
+00:11:12,720 --> 00:11:16,320
+repeat this process a few times in
+
+275
+00:11:14,370 --> 00:11:19,410
+practice you know three to five
+
+276
+00:11:16,320 --> 00:11:21,540
+iterations are generally sufficient this
+
+277
+00:11:19,410 --> 00:11:23,490
+might remind you I suppose of the
+
+278
+00:11:21,540 --> 00:11:26,580
+k-means clustering algorithm if you know
+
+279
+00:11:23,490 --> 00:11:29,279
+it okay so this is how we find clusters
+
+280
+00:11:26,580 --> 00:11:33,170
+of agreement now let's see how the whole
+
+281
+00:11:29,279 --> 00:11:36,570
+algorithm works in a bit more details
+
+282
+00:11:33,170 --> 00:11:38,850
+first for every predicted output we
+
+283
+00:11:36,570 --> 00:11:44,279
+start by setting a raw routing weight
+
+284
+00:11:38,850 --> 00:11:47,339
+bij equal to zero next we apply the
+
+285
+00:11:44,279 --> 00:11:49,170
+softmax function softmax function to
+
+286
+00:11:47,339 --> 00:11:52,230
+these raw weights for each primary
+
+287
+00:11:49,170 --> 00:11:54,149
+capsule this gives the actual routing
+
+288
+00:11:52,230 --> 00:12:00,060
+weights for each predicted output in
+
+289
+00:11:54,149 --> 00:12:01,829
+this example 0.5 each equal weights next
+
+290
+00:12:00,060 --> 00:12:04,829
+we compute a weighted sum of the
+
+291
+00:12:01,829 --> 00:12:08,160
+predictions for each capsule in the next
+
+292
+00:12:04,829 --> 00:12:10,980
+layer this might give vectors longer
+
+293
+00:12:08,160 --> 00:12:16,320
+than one so as usual we apply the squash
+
+294
+00:12:10,980 --> 00:12:18,810
+function and voila we now have the
+
+295
+00:12:16,320 --> 00:12:21,270
+actual outputs of the house capsule and
+
+296
+00:12:18,810 --> 00:12:22,980
+boat capsule but this is not the final
+
+297
+00:12:21,270 --> 00:12:26,970
+output is just the end of the first
+
+298
+00:12:22,980 --> 00:12:29,370
+round the first iteration now we can see
+
+299
+00:12:26,970 --> 00:12:31,860
+which predictions were most accurate for
+
+300
+00:12:29,370 --> 00:12:34,140
+example the rectangle capsule made a
+
+301
+00:12:31,860 --> 00:12:36,120
+great prediction for the boat capsules
+
+302
+00:12:34,140 --> 00:12:39,240
+output it really matches it pretty
+
+303
+00:12:36,120 --> 00:12:41,310
+closely this is estimated by computing
+
+304
+00:12:39,240 --> 00:12:44,850
+the scalar product of the predicted
+
+305
+00:12:41,310 --> 00:12:48,180
+output vector U hat j-jake I and the
+
+306
+00:12:44,850 --> 00:12:50,610
+actual product vector V J this scalar
+
+307
+00:12:48,180 --> 00:12:56,550
+product is simply added to the predicted
+
+308
+00:12:50,610 --> 00:12:59,040
+outputs raw routing weight bij so the
+
+309
+00:12:56,550 --> 00:13:02,760
+weight of this particular predicted
+
+310
+00:12:59,040 --> 00:13:04,860
+output is increased when there is a
+
+311
+00:13:02,760 --> 00:13:06,930
+strong agreement the scalar product is
+
+312
+00:13:04,860 --> 00:13:07,520
+going to be large so good predictions
+
+313
+00:13:06,930 --> 00:13:10,160
+will
+
+314
+00:13:07,520 --> 00:13:12,620
+have a higher weight on the other hand
+
+315
+00:13:10,160 --> 00:13:14,990
+the rectangle capsule made a pretty bad
+
+316
+00:13:12,620 --> 00:13:17,870
+prediction for the house capsules output
+
+317
+00:13:14,990 --> 00:13:20,420
+so the scalar product in this case will
+
+318
+00:13:17,870 --> 00:13:22,460
+be quite small and the raw routing
+
+319
+00:13:20,420 --> 00:13:25,760
+weights of these predicted vector will
+
+320
+00:13:22,460 --> 00:13:28,340
+not grow much next we update the routing
+
+321
+00:13:25,760 --> 00:13:30,830
+weights by computing the softmax of the
+
+322
+00:13:28,340 --> 00:13:32,990
+raw weights once again and as you can
+
+323
+00:13:30,830 --> 00:13:35,240
+see the rectangle capsules predicted
+
+324
+00:13:32,990 --> 00:13:38,210
+vector for the boat capsule now has a
+
+325
+00:13:35,240 --> 00:13:40,070
+weight of 0.8 while it's predicted
+
+326
+00:13:38,210 --> 00:13:45,020
+vector for the house capsule dropped
+
+327
+00:13:40,070 --> 00:13:47,330
+down to 0.2 so most of its output is not
+
+328
+00:13:45,020 --> 00:13:50,600
+going to go to the boat capsule not the
+
+329
+00:13:47,330 --> 00:13:52,460
+house capsule once again we compute the
+
+330
+00:13:50,600 --> 00:13:54,500
+weighted sum of all the predicted
+
+331
+00:13:52,460 --> 00:13:56,990
+outputs vectors for each capsule in the
+
+332
+00:13:54,500 --> 00:13:59,060
+next layer that is the house capsule in
+
+333
+00:13:56,990 --> 00:14:01,160
+the boat capsule and this time the house
+
+334
+00:13:59,060 --> 00:14:03,890
+capsule gets so little input that its
+
+335
+00:14:01,160 --> 00:14:05,840
+output is a tiny vector on the other
+
+336
+00:14:03,890 --> 00:14:08,540
+hand the boat capsule gets so much input
+
+337
+00:14:05,840 --> 00:14:11,000
+that its output that it outputs a vector
+
+338
+00:14:08,540 --> 00:14:14,510
+much longer than 1 so again we squash it
+
+339
+00:14:11,000 --> 00:14:16,430
+and that's the end of round 2 and as you
+
+340
+00:14:14,510 --> 00:14:18,500
+can see in just a couple iterations we
+
+341
+00:14:16,430 --> 00:14:21,230
+have already ruled out the house and
+
+342
+00:14:18,500 --> 00:14:24,350
+clearly chosen the boat after perhaps
+
+343
+00:14:21,230 --> 00:14:26,120
+one or two more rounds we can stop and
+
+344
+00:14:24,350 --> 00:14:30,200
+proceed to the next capsule layer in
+
+345
+00:14:26,120 --> 00:14:32,060
+exactly the same way so as I mentioned
+
+346
+00:14:30,200 --> 00:14:34,400
+earlier routing by agreement is really
+
+347
+00:14:32,060 --> 00:14:38,180
+great to handle crowded scenes such as
+
+348
+00:14:34,400 --> 00:14:39,950
+the one represented in this image one
+
+349
+00:14:38,180 --> 00:14:41,180
+way to interpret this image as you can
+
+350
+00:14:39,950 --> 00:14:44,270
+see there's a little bit of ambiguity
+
+351
+00:14:41,180 --> 00:14:47,180
+you can see a house upside down in the
+
+352
+00:14:44,270 --> 00:14:49,340
+middle however if this was the case then
+
+353
+00:14:47,180 --> 00:14:52,640
+there would be no explanation for the
+
+354
+00:14:49,340 --> 00:14:55,700
+bottom rectangle or the top triangle no
+
+355
+00:14:52,640 --> 00:14:57,710
+reason for them to be where they are the
+
+356
+00:14:55,700 --> 00:15:00,440
+best way to interpret the image is that
+
+357
+00:14:57,710 --> 00:15:02,900
+there is a house at the top and a boat
+
+358
+00:15:00,440 --> 00:15:05,150
+at the bottom and routing by agreement
+
+359
+00:15:02,900 --> 00:15:07,010
+will tend to choose this solution since
+
+360
+00:15:05,150 --> 00:15:08,780
+it makes all the capsules perfectly
+
+361
+00:15:07,010 --> 00:15:10,760
+happy each of them making perfect
+
+362
+00:15:08,780 --> 00:15:15,320
+predictions for the capsules in the next
+
+363
+00:15:10,760 --> 00:15:17,840
+layer the ambiguity is explained away ok
+
+364
+00:15:15,320 --> 00:15:19,000
+so what can you do with a capsule
+
+365
+00:15:17,840 --> 00:15:21,340
+network now that you know
+
+366
+00:15:19,000 --> 00:15:24,730
+how it works well for one you can create
+
+367
+00:15:21,340 --> 00:15:26,890
+a nice image classifier of course just
+
+368
+00:15:24,730 --> 00:15:29,440
+have one capsule per class in the top
+
+369
+00:15:26,890 --> 00:15:31,600
+capsule layer and that's almost all
+
+370
+00:15:29,440 --> 00:15:33,940
+there is to it all you need to add is a
+
+371
+00:15:31,600 --> 00:15:36,190
+layer that computes the length of the
+
+372
+00:15:33,940 --> 00:15:37,450
+top layer activation vectors and this
+
+373
+00:15:36,190 --> 00:15:40,420
+gives you the estimated class
+
+374
+00:15:37,450 --> 00:15:42,040
+probabilities you could then just train
+
+375
+00:15:40,420 --> 00:15:44,110
+the network by minimizing the cross
+
+376
+00:15:42,040 --> 00:15:46,330
+entropy loss has an irregular
+
+377
+00:15:44,110 --> 00:15:48,970
+classification neural network and you
+
+378
+00:15:46,330 --> 00:15:50,920
+know you'd be done however in the paper
+
+379
+00:15:48,970 --> 00:15:54,190
+they use a margin loss that makes it
+
+380
+00:15:50,920 --> 00:15:57,430
+possible to detect multiple classes in
+
+381
+00:15:54,190 --> 00:16:00,220
+the image so without going into too much
+
+382
+00:15:57,430 --> 00:16:03,010
+detail this margin loss is such that if
+
+383
+00:16:00,220 --> 00:16:05,530
+an object of class K is present in the
+
+384
+00:16:03,010 --> 00:16:07,930
+image then the corresponding top-level
+
+385
+00:16:05,530 --> 00:16:11,320
+capsule should help put a vector whose
+
+386
+00:16:07,930 --> 00:16:13,990
+squared length is at least 0.9 it should
+
+387
+00:16:11,320 --> 00:16:16,630
+be long conversely if an object of class
+
+388
+00:16:13,990 --> 00:16:18,940
+K is not present in the image then the
+
+389
+00:16:16,630 --> 00:16:21,390
+capsule should output a short vector one
+
+390
+00:16:18,940 --> 00:16:24,640
+whose squared length is shorter than 0.1
+
+391
+00:16:21,390 --> 00:16:28,270
+so the total loss is the sum of losses
+
+392
+00:16:24,640 --> 00:16:30,610
+for all classes in the paper they also
+
+393
+00:16:28,270 --> 00:16:32,920
+add a decoder network on top of the
+
+394
+00:16:30,610 --> 00:16:34,570
+capsule network it's just a three you
+
+395
+00:16:32,920 --> 00:16:36,760
+know three connected layers fully
+
+396
+00:16:34,570 --> 00:16:39,220
+connected with a sigmoid activation
+
+397
+00:16:36,760 --> 00:16:41,950
+function in the output layer and it
+
+398
+00:16:39,220 --> 00:16:43,660
+learns to reconstruct the input image by
+
+399
+00:16:41,950 --> 00:16:46,420
+minimizing the squared difference
+
+400
+00:16:43,660 --> 00:16:51,010
+between the reconstructed image and the
+
+401
+00:16:46,420 --> 00:16:53,020
+input image the full loss is margin loss
+
+402
+00:16:51,010 --> 00:16:54,880
+we discussed earlier plus the
+
+403
+00:16:53,020 --> 00:16:57,220
+reconstruction loss scaled down
+
+404
+00:16:54,880 --> 00:16:59,770
+considerably so as to ensure that the
+
+405
+00:16:57,220 --> 00:17:01,690
+margin loss dominates training the
+
+406
+00:16:59,770 --> 00:17:03,790
+benefit of applying this reconstruction
+
+407
+00:17:01,690 --> 00:17:06,040
+loss is that it forces the network to
+
+408
+00:17:03,790 --> 00:17:08,800
+preserve all the information required to
+
+409
+00:17:06,040 --> 00:17:11,770
+construct to reconstruct the image up to
+
+410
+00:17:08,800 --> 00:17:15,130
+the top layer of the capsule network its
+
+411
+00:17:11,770 --> 00:17:17,709
+output layer this constraint acts a bit
+
+412
+00:17:15,130 --> 00:17:21,010
+like a regularizer it reduces the risk
+
+413
+00:17:17,709 --> 00:17:24,939
+of overfitting and helps generalize to
+
+414
+00:17:21,010 --> 00:17:26,089
+new examples and that's it you know how
+
+415
+00:17:24,939 --> 00:17:28,279
+a
+
+416
+00:17:26,089 --> 00:17:30,200
+capsule Network works and how to train
+
+417
+00:17:28,279 --> 00:17:31,909
+it let's look a little bit at some of
+
+418
+00:17:30,200 --> 00:17:33,860
+the figures in the paper which I find
+
+419
+00:17:31,909 --> 00:17:36,919
+interesting so this is figure one
+
+420
+00:17:33,860 --> 00:17:39,799
+showing a full capsule network for mmm
+
+421
+00:17:36,919 --> 00:17:41,870
+mist you can see the the first two
+
+422
+00:17:39,799 --> 00:17:44,360
+regular convolutional layers whose
+
+423
+00:17:41,870 --> 00:17:46,640
+output is reshaped and squashed to get
+
+424
+00:17:44,360 --> 00:17:49,730
+the activation vectors of the primary
+
+425
+00:17:46,640 --> 00:17:53,090
+capsules and these primary capsules are
+
+426
+00:17:49,730 --> 00:17:55,640
+organized in a six by six grid with 32
+
+427
+00:17:53,090 --> 00:17:58,820
+primary capsules in each cell of this
+
+428
+00:17:55,640 --> 00:18:02,000
+grid and each primary capsule outputs an
+
+429
+00:17:58,820 --> 00:18:04,850
+eight dimensional vector so this first
+
+430
+00:18:02,000 --> 00:18:07,460
+layer of capsules is fully connected to
+
+431
+00:18:04,850 --> 00:18:10,549
+the ten output capsules which output
+
+432
+00:18:07,460 --> 00:18:12,200
+sixteen dimensional lectures the length
+
+433
+00:18:10,549 --> 00:18:14,480
+of these vectors is yoots
+
+434
+00:18:12,200 --> 00:18:17,330
+is used to compute the margin loss as
+
+435
+00:18:14,480 --> 00:18:18,289
+explained earlier now this is figure two
+
+436
+00:18:17,330 --> 00:18:20,690
+from the paper
+
+437
+00:18:18,289 --> 00:18:22,909
+it shows the decoder sitting on top of
+
+438
+00:18:20,690 --> 00:18:25,070
+the caps net it is composed of two fully
+
+439
+00:18:22,909 --> 00:18:27,789
+connected relu layers plus a fully
+
+440
+00:18:25,070 --> 00:18:30,830
+connected sigmoid layer which outputs
+
+441
+00:18:27,789 --> 00:18:33,230
+784 numbers that correspond to the pixel
+
+442
+00:18:30,830 --> 00:18:37,039
+intensities of the richens reconstructed
+
+443
+00:18:33,230 --> 00:18:38,510
+image which is 28 by 28 pixel the
+
+444
+00:18:37,039 --> 00:18:41,299
+squared difference between this
+
+445
+00:18:38,510 --> 00:18:44,840
+reconstructed image and the input image
+
+446
+00:18:41,299 --> 00:18:47,299
+gives the reconstruction loss right and
+
+447
+00:18:44,840 --> 00:18:49,130
+this is figure four from the paper also
+
+448
+00:18:47,299 --> 00:18:51,440
+interesting one nice thing about capsule
+
+449
+00:18:49,130 --> 00:18:53,390
+networks is that the activation vectors
+
+450
+00:18:51,440 --> 00:18:55,510
+are often quite interpretable
+
+451
+00:18:53,390 --> 00:18:57,559
+for example this image shows the
+
+452
+00:18:55,510 --> 00:18:59,539
+reconstructions that you get when you
+
+453
+00:18:57,559 --> 00:19:01,399
+gradually modify one of the 16
+
+454
+00:18:59,539 --> 00:19:03,950
+dimensions of the top layer capsules
+
+455
+00:19:01,399 --> 00:19:05,990
+output you can see that the first
+
+456
+00:19:03,950 --> 00:19:09,820
+dimension seems to represent you know
+
+457
+00:19:05,990 --> 00:19:13,010
+scale and thickness the fourth dimension
+
+458
+00:19:09,820 --> 00:19:16,100
+represents a localized skew if you look
+
+459
+00:19:13,010 --> 00:19:17,600
+at how it that number 4 is modified from
+
+460
+00:19:16,100 --> 00:19:19,940
+the left to the right the fifth
+
+461
+00:19:17,600 --> 00:19:21,950
+represents the width of the digit plus a
+
+462
+00:19:19,940 --> 00:19:23,659
+slight translation to get the exact
+
+463
+00:19:21,950 --> 00:19:27,190
+position so as you can see it's rather
+
+464
+00:19:23,659 --> 00:19:29,690
+clear what most of these parameters do
+
+465
+00:19:27,190 --> 00:19:31,399
+ok to conclude let's summarize the pros
+
+466
+00:19:29,690 --> 00:19:33,799
+and cons capsule networks have reached
+
+467
+00:19:31,399 --> 00:19:36,350
+state-of-the-art accuracy on a missed on
+
+468
+00:19:33,799 --> 00:19:37,940
+so far 10 they they got a bit over 10
+
+469
+00:19:36,350 --> 00:19:39,230
+percent error which is far from a
+
+470
+00:19:37,940 --> 00:19:41,750
+state-of-the-art but it's
+
+471
+00:19:39,230 --> 00:19:43,730
+- what was first obtained with other
+
+472
+00:19:41,750 --> 00:19:45,620
+techniques before you know years of
+
+473
+00:19:43,730 --> 00:19:46,299
+efforts were put into them so it's still
+
+474
+00:19:45,620 --> 00:19:48,980
+a good start
+
+475
+00:19:46,299 --> 00:19:51,500
+capsule networks require less training
+
+476
+00:19:48,980 --> 00:19:53,179
+data they offer equivariance which means
+
+477
+00:19:51,500 --> 00:19:55,820
+that position and pose information are
+
+478
+00:19:53,179 --> 00:19:57,850
+preserved and this is very promising for
+
+479
+00:19:55,820 --> 00:20:00,650
+image segmentation and object detection
+
+480
+00:19:57,850 --> 00:20:02,929
+the routing by agreement algorithm is
+
+481
+00:20:00,650 --> 00:20:05,030
+great for crowded scenes the routing
+
+482
+00:20:02,929 --> 00:20:07,340
+tree also maps the hierarchy of objects
+
+483
+00:20:05,030 --> 00:20:09,830
+parts so every part is associated to a
+
+484
+00:20:07,340 --> 00:20:12,679
+whole and it's rather robust to
+
+485
+00:20:09,830 --> 00:20:15,710
+rotations translations and other FIM
+
+486
+00:20:12,679 --> 00:20:18,230
+transformations the activation vectors
+
+487
+00:20:15,710 --> 00:20:20,660
+are somewhat interpretable and finally
+
+488
+00:20:18,230 --> 00:20:23,600
+obviously its sentence idea so don't bet
+
+489
+00:20:20,660 --> 00:20:26,390
+against it however there are a few cons
+
+490
+00:20:23,600 --> 00:20:28,820
+first as I mentioned the results are not
+
+491
+00:20:26,390 --> 00:20:30,410
+yet state-of-the-art on cipher 10 even
+
+492
+00:20:28,820 --> 00:20:32,210
+though it's a good start plus it's still
+
+493
+00:20:30,410 --> 00:20:34,760
+unclear whether capsule networks can
+
+494
+00:20:32,210 --> 00:20:36,830
+scale to larger images such as the image
+
+495
+00:20:34,760 --> 00:20:39,980
+net data set you know what will the
+
+496
+00:20:36,830 --> 00:20:42,440
+accuracy be capsule networks are also
+
+497
+00:20:39,980 --> 00:20:44,419
+quite slow to Train in large part
+
+498
+00:20:42,440 --> 00:20:47,000
+because of the routing by agreement
+
+499
+00:20:44,419 --> 00:20:47,750
+algorithm which has an inner loop as you
+
+500
+00:20:47,000 --> 00:20:50,780
+saw earlier
+
+501
+00:20:47,750 --> 00:20:52,610
+finally there is only one capsule of any
+
+502
+00:20:50,780 --> 00:20:54,320
+type in a given location so it's
+
+503
+00:20:52,610 --> 00:20:56,480
+impossible for a capsule network to
+
+504
+00:20:54,320 --> 00:20:59,179
+detect two objects of the same type if
+
+505
+00:20:56,480 --> 00:21:01,280
+they are too close to one another this
+
+506
+00:20:59,179 --> 00:21:03,200
+is called crowding and it's been
+
+507
+00:21:01,280 --> 00:21:06,770
+observed in human vision as well so it's
+
+508
+00:21:03,200 --> 00:21:08,690
+probably not a showstopper alright I
+
+509
+00:21:06,770 --> 00:21:10,880
+highly recommend you take a look at the
+
+510
+00:21:08,690 --> 00:21:13,280
+code of a caps net implementation such
+
+511
+00:21:10,880 --> 00:21:15,049
+as the ones listed here I'll leave the
+
+512
+00:21:13,280 --> 00:21:16,910
+links in the video description below if
+
+513
+00:21:15,049 --> 00:21:18,320
+you take your time you should have no
+
+514
+00:21:16,910 --> 00:21:20,360
+problem understanding everything the
+
+515
+00:21:18,320 --> 00:21:22,309
+code is doing the main difficulty in
+
+516
+00:21:20,360 --> 00:21:24,290
+implementing caps nets is that it
+
+517
+00:21:22,309 --> 00:21:26,630
+contains an inner loop for the routing
+
+518
+00:21:24,290 --> 00:21:28,190
+by agreement algorithm implementing
+
+519
+00:21:26,630 --> 00:21:30,410
+loops in Kerris and tensorflow
+
+520
+00:21:28,190 --> 00:21:33,650
+can be a little bit trickier than in pi
+
+521
+00:21:30,410 --> 00:21:35,210
+torch but it can be done so if you don't
+
+522
+00:21:33,650 --> 00:21:36,770
+have a particular preference then I
+
+523
+00:21:35,210 --> 00:21:39,770
+would say that the PI torch code is
+
+524
+00:21:36,770 --> 00:21:41,780
+probably the easiest to understand and
+
+525
+00:21:39,770 --> 00:21:43,850
+that's all I had I hope you enjoyed this
+
+526
+00:21:41,780 --> 00:21:46,160
+video if you did please thumbs up share
+
+527
+00:21:43,850 --> 00:21:48,559
+comment subscribe blah blah blah it's my
+
+528
+00:21:46,160 --> 00:21:50,270
+first real YouTube video and if people
+
+529
+00:21:48,559 --> 00:21:52,580
+find it useful I'm
+
+530
+00:21:50,270 --> 00:21:54,710
+make some more if you want to learn more
+
+531
+00:21:52,580 --> 00:21:56,600
+about machine learning deep learning and
+
+532
+00:21:54,710 --> 00:21:58,790
+deep reinforcement learning you may want
+
+533
+00:21:56,600 --> 00:22:00,230
+to read my Holly book hands on machine
+
+534
+00:21:58,790 --> 00:22:03,200
+learning with scikit-learn and
+
+535
+00:22:00,230 --> 00:22:05,000
+tensorflow it covers a ton of topics
+
+536
+00:22:03,200 --> 00:22:07,640
+with many code examples that you will
+
+537
+00:22:05,000 --> 00:22:09,550
+find on my github account so I'll leave
+
+538
+00:22:07,640 --> 00:22:12,590
+the links in the video description
+
+539
+00:22:09,550 --> 00:22:15,040
+that's all for today have fun and see
+
+540
+00:22:12,590 --> 00:22:15,040
+you next time
