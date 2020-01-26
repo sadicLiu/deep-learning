@@ -99,8 +99,8 @@ if flag:
     a += torch.ones((1,))
     print(id(a), a)
 
-flag = True
-# flag = False
+# flag = True
+flag = False
 if flag:
     w = torch.tensor([1.], requires_grad=True)
     x = torch.tensor([2.], requires_grad=True)
