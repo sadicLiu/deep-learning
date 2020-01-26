@@ -6,6 +6,7 @@ x = torch.tensor([2.], requires_grad=True)
 
 # 若要保留非叶子节点的梯度,使用retain_grad()方法
 a = torch.add(w, x)  # retain_grad()
+a.retain_grad()
 b = torch.add(w, 1)
 y = torch.mul(a, b)
 
