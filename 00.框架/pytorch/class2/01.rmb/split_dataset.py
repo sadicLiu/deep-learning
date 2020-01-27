@@ -13,7 +13,7 @@ if __name__ == '__main__':
     random.seed(1)
 
     dataset_dir = os.path.join('/home/liuhy/res/deep-learning/数据集/RMB_data')
-    split_dir = os.path.join('/home/liuhy/res/deep-learning/00.框架/pytorch/class2/rmb/dataset', "rmb_split")
+    split_dir = os.path.join('//dataset', "rmb_split")
     train_dir = os.path.join(split_dir, "train")
     valid_dir = os.path.join(split_dir, "valid")
     test_dir = os.path.join(split_dir, "test")

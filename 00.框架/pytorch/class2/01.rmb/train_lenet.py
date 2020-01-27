@@ -32,7 +32,7 @@ val_interval = 1
 
 # ============================ step 1/5 数据 ============================
 
-split_dir = "/home/liuhy/res/deep-learning/00.框架/pytorch/class2/rmb/dataset/rmb_split"
+split_dir = "//dataset/rmb_split"
 train_dir = os.path.join(split_dir, "train")
 valid_dir = os.path.join(split_dir, "valid")
 
