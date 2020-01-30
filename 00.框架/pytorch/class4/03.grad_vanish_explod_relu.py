@@ -24,6 +24,7 @@ class MLP(nn.Module):
     def forward(self, x):
         for (i, linear) in enumerate(self.linears):
             x = linear(x)
+            x = torch.relu(x)
 
             print("layer:{}, std:{}".format(i, x.std()))
             if torch.isnan(x.std()):
@@ -35,23 +36,11 @@ class MLP(nn.Module):
     def initialize(self):
         for m in self.modules():
             if isinstance(m, nn.Linear):
-                # 1)随机初始化,会产生梯度爆炸
-                # nn.init.normal_(m.weight.data)
-
-                # 2)初始化时每个参数除以sqrt(n),保证每层输出的方差是1
-                nn.init.normal_(m.weight.data, std=np.sqrt(1 / self.neural_num))  # normal: mean=0, std=1
-
-                # a = np.sqrt(6 / (self.neural_num + self.neural_num))
-                #
-                # tanh_gain = nn.init.calculate_gain('tanh')
-                # a *= tanh_gain
-                #
-                # nn.init.uniform_(m.weight.data, -a, a)
-
-                # nn.init.xavier_uniform_(m.weight.data, gain=tanh_gain)
-
+                # 手动计算并进行初始化
                 # nn.init.normal_(m.weight.data, std=np.sqrt(2 / self.neural_num))
-                # nn.init.kaiming_normal_(m.weight.data)
+
+                # 使用PyTorch提供的方法初始化
+                nn.init.kaiming_normal_(m.weight.data)
 
 
 layer_nums = 100
