@@ -45,9 +45,7 @@ class MLP(nn.Module):
 
                 # 使用PyTorch提供的方法初始化
                 nn.init.xavier_uniform_(m.weight.data, gain=tanh_gain)
-
-                # nn.init.normal_(m.weight.data, std=np.sqrt(2 / self.neural_num))
-                # nn.init.kaiming_normal_(m.weight.data)
+                # nn.init.xavier_normal_(m.weight.data, gain=tanh_gain)
 
 
 layer_nums = 100
