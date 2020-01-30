@@ -40,7 +40,7 @@ class MLP(nn.Module):
                 # nn.init.normal_(m.weight.data, std=np.sqrt(2 / self.neural_num))
 
                 # 使用PyTorch提供的方法初始化
-                nn.init.kaiming_normal_(m.weight.data)  # 均匀分布初始化
+                nn.init.kaiming_normal_(m.weight.data, nonlinearity='relu')  # 均匀分布初始化
                 # nn.init.kaiming_uniform_(m.weight.data)  # 正态分布初始化
 
 
