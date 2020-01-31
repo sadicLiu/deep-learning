@@ -69,8 +69,8 @@ if flag:
     torch.save(optimizer.state_dict(), os.path.join(BASE_DIR, "optimizer_state_dict.pkl"))
 
 # -----------------------------------load state_dict -----------------------------------
-# flag = 0
-flag = 1
+flag = 0
+# flag = 1
 if flag:
     optimizer = optim.SGD([weight], lr=0.1, momentum=0.9)
     state_dict = torch.load(os.path.join(BASE_DIR, "optimizer_state_dict.pkl"))
