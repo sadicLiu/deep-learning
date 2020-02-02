@@ -42,15 +42,14 @@ class MLP(nn.Module):
                 nn.init.normal_(m.weight.data, std=np.sqrt(1 / self.neural_num))  # normal: mean=0, std=1
 
 
-if __name__ == '__main__':
-    layer_nums = 100
-    neural_nums = 256
-    batch_size = 16
+layer_nums = 100
+neural_nums = 256
+batch_size = 16
 
-    net = MLP(neural_nums, layer_nums)
-    net.initialize()
+net = MLP(neural_nums, layer_nums)
+net.initialize()
 
-    inputs = torch.randn((batch_size, neural_nums))  # normal: mean=0, std=1
+inputs = torch.randn((batch_size, neural_nums))  # normal: mean=0, std=1
 
-    output = net(inputs)
-    print(output)
+output = net(inputs)
+print(output)
