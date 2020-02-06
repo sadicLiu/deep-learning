@@ -1,2 +1,4 @@
 dataset
-resnet18-5c106cde.pth
+assets/resnet18-5c106cde.pth
+assets/model_in_gpu_0.pkl
+assets/model_in_multi_gpu.pkl

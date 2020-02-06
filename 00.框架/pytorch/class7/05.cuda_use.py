@@ -7,6 +7,7 @@ device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 
 # %% tensor to cuda
 
+# 非inplace操作,重新创建变量
 x_cpu = torch.ones((3, 3))
 print("x_cpu:\n\tdevice: {}, is_cuda: {}, id: {}".format(x_cpu.device, x_cpu.is_cuda, id(x_cpu)))
 
@@ -18,6 +19,7 @@ print("x_gpu:\n\tdevice: {}, is_cuda: {}, id: {}".format(x_gpu.device, x_gpu.is_
 
 # %% module to cuda
 
+# inplace操作
 net = nn.Sequential(nn.Linear(3, 3))
 print("\nid:{}, is_cuda: {}".format(id(net), next(net.parameters()).is_cuda))
 
@@ -35,7 +37,7 @@ print("output is_cuda: {}".format(output.is_cuda))
 current_device = torch.cuda.current_device()
 print("current_device: ", current_device)
 
-torch.cuda.set_device(0)
+torch.cuda.set_device(1)
 current_device = torch.cuda.current_device()
 print("current_device: ", current_device)
 

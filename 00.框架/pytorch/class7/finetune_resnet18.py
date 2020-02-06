@@ -65,7 +65,7 @@ valid_loader = DataLoader(dataset=valid_data, batch_size=BATCH_SIZE)
 resnet18_ft = models.resnet18()
 
 # 2/3 加载参数
-path_pretrained_model = "/home/liuhy/res/deep-learning/00.框架/pytorch/class7/resnet18-5c106cde.pth"
+path_pretrained_model = "/assets/resnet18-5c106cde.pth"
 state_dict_load = torch.load(path_pretrained_model)
 resnet18_ft.load_state_dict(state_dict_load)
 
