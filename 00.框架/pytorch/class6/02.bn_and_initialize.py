@@ -1,3 +1,4 @@
+"""使用BN可以不用特别关注模型参数的初始化"""
 import torch
 import torch.nn as nn
 
@@ -6,7 +7,11 @@ from common_tools import set_seed
 set_seed(1)  # 设置随机种子
 
 
-# Notes: class4中,这份代码没有使用BN,随机初始化后forward时会产生nan; 这里使用BN后,随机初始化也没问题
+# exp1: 不用BN,也不用初始化函数,模型输出值很小
+# exp2: 不用BN,使用不太好的初始化方法(relu函数,标准正态分布),会产生nan
+# exp3: 不用BN,使用kaiming初始化,输出值正常
+# exp4: 使用BN,怎么都正常
+
 
 class MLP(nn.Module):
     def __init__(self, neural_num, layers=100):
