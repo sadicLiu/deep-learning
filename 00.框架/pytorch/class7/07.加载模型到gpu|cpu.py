@@ -19,13 +19,14 @@ class FooNet(nn.Module):
 
 
 # =================================== 加载至cpu
-flag = 0
-# flag = 1
+# flag = 0
+flag = 1
 if flag:
     gpu_list = [0]
     gpu_list_str = ','.join(map(str, gpu_list))
     os.environ.setdefault("CUDA_VISIBLE_DEVICES", gpu_list_str)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cpu")
 
     net = FooNet(neural_num=3, layers=3)
     net.to(device)
@@ -66,10 +67,10 @@ if flag:
     torch.save(net_state_dict, path_state_dict)
 
 # =================================== 多gpu 加载
-# flag = 0
-flag = 1
+# Notes: 多gpu保存的模型加载时,dict中会多出"module."这几个字母,需要将其去掉
+flag = 0
+# flag = 1
 if flag:
-
     net = FooNet(neural_num=3, layers=3)
 
     path_state_dict = "/home/liuhy/res/deep-learning/00.框架/pytorch/class7/assets/model_in_multi_gpu.pkl"
