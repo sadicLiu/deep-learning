@@ -9,7 +9,7 @@ pyreadline
 jsonschema==2.5.1
 matplotlib==2.0.0
 mistune==0.7.1
-nbconvert==4.1.0
+nbconvert==6.5.1
 nbformat==4.0.1
 numpy==1.10.4
 path.py==8.1.2
